@@ -13,15 +13,20 @@ set number relativenumber
 set expandtab
 set smartindent
 set smartcase
+set ignorecase
 set nobackup
 set noswapfile
 set undodir=~/.vim/undodir
 set undofile
 set incsearch
 highlight LineNr ctermfg=grey
-"hi Pmenu ctermbg=Brown  ctermfg=LightYellow
+hi Pmenu ctermfg=250 ctermbg=235  guifg=#bcbcbc guibg=#262626
+hi PmenuSel ctermfg=250 ctermbg=131  guifg=#bcbcbc guibg=#af5f5f
 set hidden  "hides buffer instead of closing"
 set mouse=a
+set updatetime=100 "updating git gutter fast"
+"""""too Importnat"""""
+"set nofixendofline
 "set autochdir
 "set scrolloff=18
 "colorscheme gruvbox8_hard
@@ -45,7 +50,7 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 "grep for vim
-Plug 'jremmen/vim-ripgrep'
+"Plug 'jremmen/vim-ripgrep'
 "startup script for vim
 Plug 'mhinz/vim-startify'
 "git-gutter
@@ -60,13 +65,20 @@ Plug 'tpope/vim-surround'
 "indentation guidelines
 "Plug 'nathanaelkane/vim-indent-guides'
 Plug 'Yggdroot/indentLine'
+""minimap
+"Plug 'wfxr/minimap.vim'
+Plug 'psliwka/vim-smoothie'
 call plug#end()
 "let g:indent_guides_auto_colors = 0
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=red   ctermbg=grey
 "autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=green ctermbg=7
-
-"colorscheme gruvbox
+">>>>>>>>>>>>>>>>>>>>>adding colorscheme
+"colorscheme gruvbox8
+"set background=dark
+"let g:gruvbox_transp_bg = 1
+"let g:gruvbox_italicize_strings = 0
 "hi Normal guibg=NONE ctermbg=NONE
+hi DiffAdd gui=NONE guifg=green guibg=black
 ">>>>>>>>>custom key mappings start>>>>>>>>"
 nnoremap <f1> :set hls <CR>
 nnoremap <f2> :term <CR>
@@ -76,7 +88,7 @@ nnoremap<C-z> :vertical split<CR>
 nnoremap<S-x> :vertical resize +5<CR>
 nnoremap<C-x> :vertical resize -5 <CR>
 nnoremap<C-t> :Files <CR>
-nnoremap <leader>s :Rg 
+nnoremap<C-p> :Rg <CR>
 nnoremap<C-q> :GitGutterToggle<CR>
 nnoremap <leader>b :Buffers <CR>
 nnoremap <leader>h :wincmd h <CR>
@@ -93,7 +105,12 @@ nnoremap<leader>gs :G<CR>
 nnoremap<leader>gp :Git push<CR>
 
 ">>>>>>>>>> mappings end>>>>>>>>>>>>>>>"
+">>>>>>>>>>let mappings start>>>>>>>>
+"let g:minimap_width = 10
+"let g:minimap_auto_start = 1
+"let g:minimap_auto_start_win_enter = 1
 
+">>>>>>>>>>>auto commands start>>>>>>>>>>>>>>
 " Persist cursor
 autocmd BufReadPost *
   \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
@@ -107,7 +124,7 @@ command! ProjectFiles execute 'Files' s:find_git_root()
 "map <C-p> :ProjectFiles<CR>
 " In the quickfix window, <CR> is used to jump to the error under the
 " cursor, so undefine the mapping there.
-autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR><C-W>
+"autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR><C-W>
 "Autocmd for g++
 autocmd BufWritePost *11.cpp !g++ % -lGL -lcrypto -lglut -lGLU &&  ./a.out
 "autocmd filetype cpp nnoremap <f5> :w <bar> !g++ % -lcrypto -lGL -lglut -lGLU -o %:r && ./%:r <cr> 
